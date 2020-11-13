@@ -20,4 +20,4 @@ Pillow 7.2.0<br/>
 模型保存在`checkpoints/`目录下	<br/>
 ### Test&Eval
 运行`python calc_psnr&output.py`进行测试，生成的图片保存在`results/`目录下	<br/>
-`calc_psnr&output.py`中写的psnr计算公式可能有问题，也可使用`make_datasets/`目录下的`compute_psnr.m`计算psnr	<br/>
+`calc_psnr&output.py`中写的psnr计算结果可能有问题，可使用`utils/`目录下的`compute_psnr.m`计算psnr	<br/>
