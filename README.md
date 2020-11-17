@@ -9,6 +9,8 @@ Python 3.8<br/>
 PyTorch 1.6.0<br/>
 Numpy 1.19.2<br/>
 Pillow 7.2.0<br/>
+Visdom 0.1.8.9<br/>
+Wandb 0.10.10<br/>
 ## Usage:
 ### Make datasets
 所用的目录需要手动创建<br/>
