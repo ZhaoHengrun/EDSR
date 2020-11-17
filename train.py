@@ -10,10 +10,12 @@ from torch.utils.data import DataLoader
 from model import Net
 from data import get_training_set
 import visdom
+import wandb
 import numpy as np
 
 torch.cuda.set_device(0)  # use the chosen gpu
-vis = visdom.Visdom(env='EDSR')
+# vis = visdom.Visdom(env='EDSR')
+wandb.init(project="edsr")
 
 # Training settings
 parser = argparse.ArgumentParser(description="PyTorch EDSR")
@@ -67,6 +69,8 @@ def main():
     if cuda:
         model = model.cuda()
         criterion = criterion.cuda()
+
+    wandb.watch(model)
 
     # optionally resume from a checkpoint
     if opt.resume:
@@ -134,11 +138,15 @@ def train(training_data_loader, optimizer, model, criterion, epoch):
         print("===> Epoch[{}]({}/{}): Loss: {:.10f}".format(epoch, iteration, len(training_data_loader),
                                                             loss.item()))
     avr_loss = avr_loss / len(training_data_loader)
-    vis.line(Y=np.array([avr_loss]), X=np.array([epoch]),
-             win='loss',
-             opts=dict(title='loss'),
-             update='append'
-             )
+
+    # vis.line(Y=np.array([avr_loss]), X=np.array([epoch]),
+    #          win='loss',
+    #          opts=dict(title='loss'),
+    #          update='append'
+    #          )
+
+    wandb.log({"Test avr_loss": avr_loss})
+
     epoch_avr_loss = avr_loss
     if epoch_avr_loss < min_avr_loss:
         min_avr_loss = epoch_avr_loss
